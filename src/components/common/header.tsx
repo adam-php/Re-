@@ -35,7 +35,7 @@ export function Header({ className }: SidebarProps) {
     <Link href="/" className="pointer flex items-center">
       <img src="/logo.svg" className="mr-3" />
       <Typography className="!text-white !text-base font-medium ">
-        Pandem
+        Re
       </Typography>
     </Link>
   )
