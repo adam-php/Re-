@@ -1,24 +1,24 @@
 import React from 'react'
 import Typography from '@components/ui/typography'
 interface ContainerProps {
-  features: Feature[],
-  colors: string[],
+  features: Feature[]
+  colors: string[]
+}
 interface FeatureProps {
-  icon: React.ReactNode,
-  headline: string,
-  description: string,
+  icon: React.ReactNode
+  headline: string
+  description: string
 }
 
 const Container: React.FC<ContainerProps> = ({
   features,
-  colors,
+  colors
 }) => {
   return (
     <div className="grid grid-cols-3">
-    {features.map((element, index) => {
-      <div>
-    }
-    )}
+      {features.map((element, index) => {
+        return <div key={index} />
+      })}
     </div>
   )
 }
