@@ -7,15 +7,42 @@ import Feature from './feature'
 import { Users, NotebookPen, Bot, Text, MessageCircleMore, ClipboardList, FileJson } from 'lucide-react'
 import Link from 'next/link'
 import { Canvas } from "@react-three/fiber"
-import { OrbitControls, useGLTF, Environment, Float, Text3D, Center } from "@react-three/drei"
+import { OrbitControls, useGLTF, Environment, Float, Text3D, Center, PerspectiveCamera } from "@react-three/drei"
 import { Suspense, useEffect, useState, useRef } from "react"
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useVelocity, useAnimationFrame } from "framer-motion"
+import { useThree } from '@react-three/fiber'
 
 function Model({ url }: { url: string }) {
   const { scene } = useGLTF(url)
   return (
     <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
       <primitive object={scene} scale={[0.8, 0.8, 0.8]} position={[0, -1, 0]} />
+    </Float>
+  )
+}
+
+function CyberpunkApartments() {
+  const { scene } = useGLTF("/models/cyberpunk_micro-apartments.glb")
+  const { viewport } = useThree()
+
+  useEffect(() => {
+    scene.traverse((child) => {
+
+      if ('isMesh' in child && child.isMesh) {
+        child.castShadow = true
+        child.receiveShadow = true
+      }
+    })
+  }, [scene])
+
+  return (
+    <Float speed={1} rotationIntensity={0.2} floatIntensity={0.2}>
+      <primitive 
+        object={scene} 
+        scale={[viewport.width * 0.065, viewport.width * 0.065, viewport.width * 0.065]}
+        position={[0, -3, 0]}
+        rotation={[0, Math.PI / 4, 0]}
+      />
     </Float>
   )
 }
@@ -134,12 +161,16 @@ export default function Home() {
     zIndex: -1,
   }
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="flex flex-col min-h-screen relative overflow-x-hidden">
       <CustomCursor />
       <motion.div style={{ ...backgroundStyle, opacity: backgroundOpacity }} />
       <main className="flex-grow text-white">
-        <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24">
+        <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 bg-gradient-to-b from-black to-purple-900">
           <div className="container px-4 md:px-6 mx-auto">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <motion.div 
@@ -163,7 +194,8 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.5 }}
                   >
-                    Seamlessly integrating real-time collaboration with powerful organizational tools. Whether you're managing a team, building a community, or organizing personal projects, Love helps you stay connected and organized like never before.
+                    Step into a world where your workspace adapts to your needs. Our AI-powered platform brings together the best of collaboration, organization, and innovation.
+                    .
                   </motion.p>
                 </div>
                 <motion.div 
@@ -200,7 +232,7 @@ export default function Home() {
 
         <ParallaxText baseVelocity={-5}>Love • Collaborate • Organize • Innovate •</ParallaxText>
 
-        <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20">
+        <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-b from-purple-900 to-violet-800">
           <div className="container px-4 md:px-6 mx-auto">
             <motion.h2 
               className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-center mb-8 sm:mb-12"
@@ -230,7 +262,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-b from-purple-900 to-indigo-900">
+        <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-b from-violet-800 to-purple-700">
           <div className="container px-4 md:px-6 mx-auto">
             <motion.h2 
               className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter text-center mb-8 sm:mb-12"
@@ -283,39 +315,65 @@ export default function Home() {
 
         <ParallaxText baseVelocity={5}>AI-Powered • Seamless • Intuitive • Powerful •</ParallaxText>
 
-        <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20">
-          <div className="container px-4 md:px-6 mx-auto text-center">
-            <motion.h2 
-              className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              Get in touch
-            </motion.h2>
-            <motion.p 
-              className="text-muted-foreground text-sm sm:text-base md:text-lg mb-6 sm:mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              Book a demo, or hop on a call
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <Link
-                href="https://map.sistilli.dev/public/coding/SaaS+Boilerplate"
-                target="_blank"
+        <section className="w-full py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-b from-purple-700 to-purple-900">
+          <div className="container px-4 md:px-6 mx-auto">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
+              <motion.div 
+                className="flex flex-col justify-center space-y-4"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
               >
-                <Button size="lg" className="w-full sm:w-auto bg-white text-black hover:bg-gray-100">Book now</Button>
-              </Link>
-            </motion.div>
+                <motion.h2 
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter mb-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  Experience the Future of Work
+                </motion.h2>
+                <motion.p 
+                  className="text-muted-foreground text-sm sm:text-base md:text-lg mb-6 sm:mb-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  Seamlessly integrating real-time collaboration with powerful organizational tools. Whether you're managing a team, building a community, or organizing personal projects, Love helps you stay connected and organized like never before.
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <Link
+                    href="https://map.sistilli.dev/public/coding/SaaS+Boilerplate"
+                    target="_blank"
+                  >
+                    <Button size="lg" className="w-full sm:w-auto bg-white text-black hover:bg-gray-100">Book a Demo</Button>
+                  </Link>
+                </motion.div>
+              </motion.div>
+              <motion.div 
+                className="h-[450px] lg:h-[600px]"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <Canvas camera={{ position: [0, 0, 18], fov: 50 }}>
+                  <Suspense fallback={null}>
+                    <CyberpunkApartments />
+                    <Environment preset="night" />
+                    <PerspectiveCamera makeDefault position={[0, 0, 18]} />
+                  </Suspense>
+                  <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
+                </Canvas>
+              </motion.div>
+            </div>
           </div>
         </section>
       </main>
