@@ -20,7 +20,7 @@ export function Header({ className }: SidebarProps) {
   const pathname = usePathname()
   const items = [
     {
-      href: 'https://map.sistilli.dev/public/coding/SaaS+Boilerplate',
+      href: '/login',
       title: 'Book a demo',
       openInNewTab: true
     }

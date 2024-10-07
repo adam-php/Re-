@@ -57,6 +57,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/space-before-function-paren': 0,
     'react/no-unescaped-entities': 0,
-    '@typescript-eslint/no-unused-vars': 1
+    '@typescript-eslint/no-unused-vars': 1,
+    'react/no-unknown-property': 0
   }
 }
