@@ -69,13 +69,17 @@
       padding-right: 24px;
     }
   }
-}.custom-cursor {
+}
+.custom-cursor {
   @apply mix-blend-difference pointer-events-none fixed z-50;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: white;
-  transition: width 0.3s, height 0.3s, background-color 0.3s;
+  transition:
+    width 0.3s,
+    height 0.3s,
+    background-color 0.3s;
 }
 
 .custom-cursor.hover {

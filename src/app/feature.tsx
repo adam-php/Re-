@@ -13,9 +13,7 @@ const Feature: React.FC<FeatureProps> = ({
   description
 }) => {
   return (
-    <div
-      className="flex flex-col gap-6 text-center max-w-72 items-center"
-      >
+    <div className="flex flex-col gap-6 text-center max-w-72 items-center">
       <div className="py-4 px-4 rounded-md border max-w-fit">
         {icon}
       </div>

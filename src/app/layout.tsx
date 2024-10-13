@@ -32,15 +32,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-
-
     <html
       lang="en"
       suppressHydrationWarning
-      className="antialiased h-full"ha
+      className="antialiased h-screen"
+      ha
     >
       <Analytics />
-      <body className={inter.className + " h-full"}>
+      <body className={inter.className + ' h-screen'}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -56,7 +55,6 @@ export default function RootLayout({
                 {children}
               </div>
             </div>
-            <Footer />
           </main>
         </ThemeProvider>
       </body>
